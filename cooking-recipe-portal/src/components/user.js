@@ -48,7 +48,7 @@ const User = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/recipes', {
+      const response = await fetch('https://pakashastran-server.onrender.com/api/recipes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

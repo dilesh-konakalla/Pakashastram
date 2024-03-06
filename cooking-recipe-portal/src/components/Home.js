@@ -24,7 +24,8 @@ const Home = () => {
   }, []);
 
   const backgroundStyle = {
-    backgroundImage: "url('https://i.ibb.co/0QFRX4j/Pakashastrahome.png')",
+   backgroundImage: "url('https://i.ibb.co/0QFRX4j/Pakashastrahome.png')",
+   // backgroundColor:"rgb(222, 209, 128)",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100vh',
