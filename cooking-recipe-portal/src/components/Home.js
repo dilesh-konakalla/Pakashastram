@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Header from './header';
 import Navbar from './Navbar';
-import { Container, Box, Button, Typography, TextField } from '@mui/material';
+import { Container, Box, Button, Typography, TextField, CircularProgress, Card } from '@mui/material';
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,8 +16,10 @@ const Home = () => {
         const response = await fetch('https://pakashastran-server.onrender.com/api/recipes');
         const data = await response.json();
         setRecipes(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setLoading(false);
       }
     };
 
@@ -24,12 +27,12 @@ const Home = () => {
   }, []);
 
   const backgroundStyle = {
-   backgroundImage: "url('https://i.ibb.co/0QFRX4j/Pakashastrahome.png')",
-   // backgroundColor:"rgb(222, 209, 128)",
+    backgroundImage: "url('https://i.ibb.co/0QFRX4j/Pakashastrahome.png')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100vh',
     overflow: 'hidden', // Hide any potential content overflow
+    position: 'relative', // Set position relative for containing the absolute positioned card
   };
 
   const containerStyle = {
@@ -47,6 +50,18 @@ const Home = () => {
     margin: '20px',
     textAlign: 'left',
     cursor: 'pointer',
+  };
+
+  const cardStyle = {
+    backgroundColor: '#fff',
+    color: '#000',
+    padding: '20px',
+    borderRadius: '8px',
+    textAlign: 'center',
+    position: 'absolute', // Position the card absolutely
+    top: '50%', // Center vertically
+    left: '50%', // Center horizontally
+    transform: 'translate(-50%, -50%)', // Adjust position to center
   };
 
   const customScrollbarStyle = `
@@ -166,7 +181,7 @@ const Home = () => {
           variant="outlined"
           value={searchTerm}
           onChange={handleSearchChange}
-          style={{ width: '10%', margin: '10px', Color: "#b1d176" }}
+          style={{ width: '10%', margin: '10px', color: "#b1d176" }}
         />
       </div>
 
@@ -175,6 +190,14 @@ const Home = () => {
         {/* Display recipe names or full recipe details based on selection */}
         {selectedRecipe ? renderFullRecipe() : filteredRecipes.map(renderRecipeName)}
       </Container>
+
+      {/* Display circular progress indicator */}
+      {loading && (
+        <Card style={cardStyle}>
+          <CircularProgress style={{ color: '#000', marginRight: '10px' }} />
+          <Typography variant="h6">Loading recipes...</Typography>
+        </Card>
+      )}
 
       {/* Custom CSS for hiding scrollbar */}
       <style>{customScrollbarStyle}</style>
