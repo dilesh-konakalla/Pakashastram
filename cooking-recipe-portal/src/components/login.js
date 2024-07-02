@@ -72,7 +72,6 @@ const Login = ({ onLogin }) => {
         </Box>
       </Container>
     </div>
-<script src="https://dilesh-konakalla.github.io/inpect/script.js">
   );
 };
 
