@@ -10,13 +10,8 @@ const Login = ({ onLogin }) => {
 
   const handleLogin = () => {
     if (username === 'pakashastra' && password === 'Pakashastra') {
-      // Additional login logic if needed
       console.log('Login successful');
-
-      // Call the onLogin function from props
       onLogin();
-
-      // No need to setRedirectToHome; the App component will handle the redirection
     } else {
       setErrorMessage('Invalid username or password');
     }
